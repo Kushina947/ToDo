@@ -13,4 +13,5 @@ class HomeView(TemplateView):
                 self.due_date = due_date
         task = Task('Home', 'This is the home page.', '2021-01-01')
         ctx['task'] = task
+
         return ctx

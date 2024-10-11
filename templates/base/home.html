@@ -4,11 +4,11 @@
 
 {% block content %}
 
-<h1>課題一覧</h1>
+
+
+<h1>課題一覧 {{ now }}</h1>
 <ul>
 
-    <li>{{ task.title }}</li>
-    <li>{{ task.due_date }}</li>
-
+    <h5>{{ task.title }} {{ task.description}} {{ task.due_date }}</h5>
 
 {% endblock content %}

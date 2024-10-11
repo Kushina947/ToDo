@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock title %}
+
+
+{% block content %}
+
+<h1>課題一覧</h1>
+<ul>
+
+    <h5>{{ task.title }} {{ task.description}} {{ task.due_date }}</h5>
+
+{% endblock content %}
