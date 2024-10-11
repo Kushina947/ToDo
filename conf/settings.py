@@ -32,13 +32,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'base.apps.BaseConfig',
+    'accounts.apps.AccountsConfig',
+    'assignment.apps.AssignmentConfig',
+    'thread.apps.ThreadConfig',
+    'lecture.apps.LectureConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'base',
 
 ]
 

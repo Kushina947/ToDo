@@ -1,10 +1,14 @@
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="content-language" content="ja">
-    <title>{{title}}</title>
-</head>
-<body>
-<h1>{{title}}</h1>
-<h2>{{aaaa}}</h2>
-<p>テンプレートテスト表示</p>
-</body>
+{% extends "base.html" %}
+{% block title %}Home{% endblock title %}
+
+
+{% block content %}
+
+<h1>課題一覧</h1>
+<ul>
+
+    <li>{{ task.title }}</li>
+    <li>{{ task.due_date }}</li>
+
+
+{% endblock content %}
