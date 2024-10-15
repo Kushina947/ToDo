@@ -12,6 +12,6 @@ class CustomUser(AbstractUser):
         return self.username
 
 class User_Assignment(models.Model):
-    user = models.ForeignKey(CustomUser, related_name='user', on_delete=models.CASCADE)
-    assignment = models.ForeignKey(Assignment, related_name='assignment', on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, related_name='user_assignment', on_delete=models.CASCADE)
+    assignment = models.ForeignKey(Assignment, related_name='user_assignment', on_delete=models.CASCADE)
     is_finished = models.BooleanField(default=False)
