@@ -6,6 +6,11 @@
     <title>ToDo | {% block title %}{%endblock title %}</title>
 </html>
 <body>
+    <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+    <a href="#" onclick="document.getElementById('logout-form').submit();">Logout</a>
     {% block content %}{% endblock content%}
 </body>
 </html>

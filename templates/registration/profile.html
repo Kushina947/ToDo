@@ -1,23 +1,24 @@
 {% extends "base.html" %}
-{% block title %}ログイン{% endblock title %}
+{% block title %}Home{% endblock title %}
+
 
 {% block content %}
+<h1>プロフィール</h1>
 <div class="ui grid stackable">
     <div class="eleven wide column">
         <div class="ui breadcrumb">
             <i class="right angle icon divider"></i>
-            <a class="active section">ログイン</a>
+            <a class="active section">プロフィール</a>
         </div>
         <div class="ui segment">
             <div class="content">
-                <div class="header"><h3>ログイン</h3></div>
+                <div class="header"><h3>プロフィール</h3></div>
                 <form class="ui form" action="" method="POST">
                     {% csrf_token %}
                     {{form.as_p}}
-                    <button class="ui orange button" type="submit">ログイン</button>
+                    <button class="ui orange button" type="submit">更新</button>
                 </form>
             </div>
         </div>
     </div>
-</div>
-{% endblock %}
+{% endblock content %}
