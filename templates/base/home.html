@@ -4,11 +4,45 @@
 
 {% block content %}
 
+<p>{{user.username}}さん、こんにちは</p>
+<p><img src="{{user.icon.url}}" alt="{{user.icon}}" style="height: 50px; width: 50px;"></p>
 
-<p>{{ user.username }}</p>
-<h1>課題一覧 {{ now }}</h1>
+<h1>課題一覧</h1>
 <ul>
+    <!--
+    assignment.assignmentはassignment/models.pyで定義
+    class Assignment(models.Model):
+        assignment_id
+        title
+        description
+        deadline
+        course
+    -->
+    {% for assignment in user_assignments %}
+        <p>{{assignment.assignment.title}}</p>
+        <p>{{assignment.assignment.description}}</p>
+        <p>{{assignment.assignment.deadline}}</p>
+    {% empty %}
+        <p>課題はありません</p>
+    {% endfor %}
+</ul>
+<h1>登録中の講義</h1>
+<ul>
+    <!--
+    class Course(models.Model):
+        term
+        code
+        name
+        teacher
+        lecture_schedule
+    -->
+    {% for course in courses %}
+        <p>{{course.code}}</p>
+        <p>{{course.name}}</p>
+        <p>{{course.teacher}}</p>
+    {% empty %}
+        <p>講義はありません</p>
+    {% endfor %}
 
-    <h5>{{ task.title }} {{ task.description}} {{ task.due_date }}</h5>
 
 {% endblock content %}
