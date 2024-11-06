@@ -1,12 +1,15 @@
-{% extends "base.html" %}
-{% block title %}ログイン{% endblock title %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo | ログイン</title>
+</head>
 
 {% block content %}
-<div class="content">
-    <form class="ui form" action="" method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button class="ui orange button" type="submit">ログイン</button>
-    </form>
-</div>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">ログイン</button>
+</form>
+
 {% endblock %}

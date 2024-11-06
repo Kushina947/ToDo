@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo | {% block title %}{%endblock title %}</title>
-</html>
+</head>
 <body>
     <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
         {% csrf_token %}

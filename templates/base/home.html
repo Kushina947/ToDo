@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock title %}
 
-
+{% load static %}
 {% block content %}
 
 <p>{{user.username}}さん、こんにちは</p>
+
+{% if user.icon and user.icon.url %}
 <p><img src="{{user.icon.url}}" alt="{{user.icon}}" style="height: 50px; width: 50px;"></p>
+{% else %}
+<p><img src="{% static 'images/default_icon.png' %}" alt="デフォルトアイコン" style="height: 50px; width: 50px;"></p>
+{% endif %}
 
 <h1>課題一覧</h1>
 <ul>
