@@ -1,0 +1,9 @@
+{% block title %}登録{% endblock title %}
+
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button name="next" value="confirm" type="submit">確認</button>
+</form>
+{% endblock %}

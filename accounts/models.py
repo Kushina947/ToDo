@@ -7,6 +7,8 @@ from lecture.models import Course
 class CustomUser(AbstractUser):
     icon = models.ImageField(upload_to='icon/', null=True, blank=True)
     courses = models.ManyToManyField(Course, related_name='students', blank=True)
+    first_name = None
+    last_name = None
 
     def __str__(self):
         return self.username

@@ -1,8 +1,10 @@
 from django.db import models
 from accounts.models import CustomUser
+from lecture.models import Course
 
 class Post(models.Model):
     post_id = models.AutoField(primary_key=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
