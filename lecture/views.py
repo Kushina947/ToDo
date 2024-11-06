@@ -4,7 +4,7 @@ from django.views.generic.edit import FormView
 from .models import Course
 from .forms import CourseAddForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.http import JsonResponse
 
 class Lecture_addView(LoginRequiredMixin, FormView):
@@ -42,4 +42,4 @@ def get_course_details(request):
     return JsonResponse(course_data)
 
 class LectureDetailView(DetailView):
-    
+    pass
