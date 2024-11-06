@@ -1,0 +1,8 @@
+<h1>講義一覧</h1>
+<ul>
+    {% for course in courses %}
+        <li>{{ course.name }} ({{ course.term }}, {{ course.code }}) - {{ course.teacher }} - {{ course.lecture_schedule }}</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'lecture_add' %}"  class="btn btn-primary">講義を追加</a>
