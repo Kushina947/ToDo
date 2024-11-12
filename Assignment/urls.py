@@ -3,6 +3,8 @@ from .views import *
 
 app_name = 'assignment'
 urlpatterns = [
-    path('', AssignmentView.as_view(), name='assignment'),
-    path('register/', Assignment_addView.as_view(), name='assignment_add')
+    path('create/<str:code>/', AssignmentCreateView.as_view(), name='create'),
+    path('<int:pk>/delete/', AssignmentDeleteView.as_view(), name='delete'),
+    path('<int:pk>/edit/', AssignmentUpdateView.as_view(), name='edit'),
+    path('<int:pk>/', AssignmentDetailView.as_view(), name='detail'),
 ]

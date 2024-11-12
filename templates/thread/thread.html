@@ -4,19 +4,29 @@
 {% block content %}
 <h1>{{ post.title }}</h1>
 <ul class="thread">
-    <img src="{{post.user.icon.url}}" alt="{{post.user.icon}}" style="height: 50px; width: 50px;">
-    <p>{{ post.created_at }}</p>
-    <p>{{ post.user.username }}</p>
-    <p>{{ post.content }}</p>
+    <img src="{{post.user.icon.url}}" alt="{{post.user.icon}}" class="user-icon">
+    <div class="text-content">
+        <div class="user-info">
+            <p class="username">{{ post.user.username }}</p>
+            <p class="post-date">{{ post.created_at }}</p>
+        </div>
+        <p class="post-content">{{ post.content }}</p>
+    </div>
 </ul>
+
 
 {% for comment in comments %}
 <ul class="thread">
-    <p>{{ comment.created_at }}</p>
-    <img src="{{comment.user.icon.url}}" alt="{{comment.user.icon}}" style="height: 50px; width: 50px;">
-    <p>{{ comment.user.username }}</p>
-    <p>{{ comment.content }}</p>
+    <img src="{{comment.user.icon.url}}" alt="{{comment.user.icon}}" class="user-icon">
+    <div class="text-content">
+        <div class="user-info">
+            <p class="username">{{ comment.user.username }}</p>
+            <p class="post-date">{{ comment.created_at }}</p>
+        </div>
+        <p class="post-content">{{ comment.content }}</p>
+    </div>
 </ul>
+
 {% endfor %}
 
 {% endblock content %}

@@ -10,14 +10,18 @@
 <p>{{ course.teacher }}</p>
 <p>{{ course.lecture_schedule }}</p>
 
-<h1>課題一覧</h1>
+
+<div class="assignment">
+    <h1>課題一覧</h1>
+    <a href="{% url 'assignment:create' course.code %}">課題登録</a>
+</div>
+
 <ul>
     {% for assignment in assignments %}
-        <p>{{assignment.title}}  {{assignment.description}} {{assignment.deadline}}</p>
+        <a href="{% url 'assignment:detail' assignment.pk %}">{{assignment.title}}  {{assignment.description}} {{assignment.deadline}}</a><br>
     {% empty %}
         <p>課題はありません</p>
     {% endfor %}
-    <a href="{% url  'assignment:' %}">課題登録</a>
 </ul>
 <h1>スレッド一覧</h1>
 <ul>
