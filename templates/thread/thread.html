@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %} {% endblock title %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<ul class="thread">
+    <img src="{{post.user.icon.url}}" alt="{{post.user.icon}}" style="height: 50px; width: 50px;">
+    <p>{{ post.created_at }}</p>
+    <p>{{ post.user.username }}</p>
+    <p>{{ post.content }}</p>
+</ul>
+
+{% for comment in comments %}
+<ul class="thread">
+    <p>{{ comment.created_at }}</p>
+    <img src="{{comment.user.icon.url}}" alt="{{comment.user.icon}}" style="height: 50px; width: 50px;">
+    <p>{{ comment.user.username }}</p>
+    <p>{{ comment.content }}</p>
+</ul>
+{% endfor %}
+
+{% endblock content %}

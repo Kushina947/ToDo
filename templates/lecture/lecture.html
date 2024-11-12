@@ -10,12 +10,21 @@
 <p>{{ course.teacher }}</p>
 <p>{{ course.lecture_schedule }}</p>
 
+<h1>課題一覧</h1>
 <ul>
     {% for assignment in assignments %}
         <p>{{assignment.title}}  {{assignment.description}} {{assignment.deadline}}</p>
     {% empty %}
         <p>課題はありません</p>
     {% endfor %}
+    <a href="{% url  'assignment:' %}">課題登録</a>
 </ul>
+<h1>スレッド一覧</h1>
+<ul>
+    {% for thread in threads %}
+        <a href="{% url 'thread:thread' thread.pk %}">{{thread.title}}</a><br>
+    {% empty %}
+        <p>スレッドはありません</p>
+    {% endfor %}
 
 {% endblock content %}
