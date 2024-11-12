@@ -1,0 +1,14 @@
+a {
+    text-decoration: none;
+}
+
+header {
+    background-color: #f0f0f0;
+    padding: 10px 0;
+    display: flex;
+}
+
+.HeaderIcon {
+    margin-left: 1000px;
+    margin-right: 10px;
+}

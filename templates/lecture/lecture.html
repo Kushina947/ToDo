@@ -1,8 +1,21 @@
-<h1>講義一覧</h1>
+{% extends "base.html" %}
+
+{% block title %}講義 -{{ course.name }}{% endblock title %}
+
+{% block content %}
+
+<h1>{{ course.code }}</h1>
+<h2>{{ course.name }}</h2>
+<p>{{ course.term }}</p>
+<p>{{ course.teacher }}</p>
+<p>{{ course.lecture_schedule }}</p>
+
 <ul>
-    {% for course in courses %}
-        <li>{{ course.name }} ({{ course.term }}, {{ course.code }}) - {{ course.teacher }} - {{ course.lecture_schedule }}</li>
+    {% for assignment in assignments %}
+        <p>{{assignment.title}}  {{assignment.description}} {{assignment.deadline}}</p>
+    {% empty %}
+        <p>課題はありません</p>
     {% endfor %}
 </ul>
 
-<a href="{% url 'lecture_add' %}"  class="btn btn-primary">講義を追加</a>
+{% endblock content %}

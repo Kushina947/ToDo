@@ -1,24 +1,20 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock title %}
+{% block title %}プロフィール{% endblock title %}
+
+{% load static %}
 
 
 {% block content %}
-<h1>プロフィール</h1>
-<div class="ui grid stackable">
-    <div class="eleven wide column">
-        <div class="ui breadcrumb">
-            <i class="right angle icon divider"></i>
-            <a class="active section">プロフィール</a>
-        </div>
-        <div class="ui segment">
-            <div class="content">
-                <div class="header"><h3>プロフィール</h3></div>
-                <form class="ui form" action="" method="POST">
-                    {% csrf_token %}
-                    {{form.as_p}}
-                    <button class="ui orange button" type="submit">更新</button>
-                </form>
-            </div>
-        </div>
-    </div>
+{% if user.icon and user.icon.url %}
+<p><img src="{{user.icon.url}}" alt="{{user.icon}}" style="height: 50px; width: 50px;"></p>
+{% else %}
+<p><img src="{% static 'images/default_icon.png' %}" alt="デフォルトアイコン" style="height: 50px; width: 50px;"></p>
+{% endif %}
+<p>{{user.username}}</p>
+<form id="logout-form" action="{% url 'accounts:logout' %}" method="post" style="display: none;">
+    {% csrf_token %}
+</form>
+<a href="#" onclick="document.getElementById('logout-form').submit();">ログアウト</a>
+
+
 {% endblock content %}

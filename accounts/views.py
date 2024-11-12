@@ -10,38 +10,36 @@ from django.contrib.auth import authenticate, login
 class CustomLoginView(LoginView):
     template_name = "registration/login.html"
     form_class = CustomAuthenticationForm
-    
+
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('home')
+            return redirect('base:home')
         return super().dispatch(request, *args, **kwargs)
 
 class SignUpView(FormView):
     template_name = "registration/sign_up.html"
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('accounts:login')
+
     def form_valid(self, form):
-        print(self.request.POST['next'])
         if self.request.POST['next'] == 'back':
             return render(self.request, 'registration/create.html', {'form': form})
         elif self.request.POST['next'] == 'confirm':
             return render(self.request, 'registration/sign_up_confirm.html', {'form': form})
         elif self.request.POST['next'] == 'register':
             form.save()
-            # 認証
             user = authenticate(
                 username=form.cleaned_data['username'],
                 password=form.cleaned_data['password1'],
             )
-            # ログイン
             login(self.request, user)
             return super().form_valid(form)
         else:
-            return redirect(reverse_lazy('signup'))
+            return redirect(reverse_lazy('base:home'))
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('home')
+            return redirect('base:home')
         return super().dispatch(request, *args, **kwargs)
 
 class CustomLogoutView(LogoutView):
@@ -49,3 +47,8 @@ class CustomLogoutView(LogoutView):
 
 class ProfileView(TemplateView):
     template_name = "registration/profile.html"
+
+    def get_context_data(self, **kwargs):
+        ctx =  super().get_context_data(**kwargs)
+        ctx['user'] = self.request.user
+        return ctx

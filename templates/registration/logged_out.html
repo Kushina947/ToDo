@@ -7,4 +7,9 @@
 
 <p>ログアウトしました</p>
 
+<form id="logout-form" action="{% url 'accounts:login' %}" method="post" style="display: none;">
+    {% csrf_token %}
+</form>
+<a href="#" onclick="document.getElementById('logout-form').submit();">ログイン画面へ</a>
+
 {% endblock content %}
