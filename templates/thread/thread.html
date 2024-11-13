@@ -26,7 +26,25 @@
         <p class="post-content">{{ comment.content }}</p>
     </div>
 </ul>
-
 {% endfor %}
 
+<script>
+    // ページが読み込まれたときに一番下にスクロールする
+    window.onload = function() {
+        var commentList = document.getElementsByClassName('thread');
+        if (commentList.length > 0) {
+            commentList[commentList.length - 1].scrollIntoView();
+        }
+    };
+</script>
+
 {% endblock content %}
+{% block footer %}
+<footer>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">送信</button>
+    </form>
+</footer>
+{% endblock footer %}

@@ -58,7 +58,7 @@ class AssignmentDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('lecture:lecture', kwargs={'pk': self.object.course.code})
-    
+
 
 class AssignmentDetailView(LoginRequiredMixin, DetailView):
     model = Assignment

@@ -16,7 +16,9 @@
         <a class=HeaderIcon href="{% url 'accounts:profile' %}"><img src="{% static 'images/default_icon.png' %}" alt="デフォルトアイコン" style="height: 50px; width: 50px;"></a>
     {% endif %}
     </header>
-
+    <div class="content">
     {% block content %}{% endblock content%}
+    </div>
+    {% block footer %}{% endblock footer %}
 </body>
 </html>
