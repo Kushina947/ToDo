@@ -1,15 +1,37 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDo | ログイン</title>
-</head>
+{% extends "base.html" %}
 
 {% block content %}
 
-<form action="" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">ログイン</button>
-</form>
+<main>
+    <div class="login">
+    <h1 class="page-header">履修科目掲示板  <i class="fa-solid fa-chalkboard-user"></i></h1>
+    <p1>新潟大学工学部</p1><br>
+    <p2>ログインページ</p2>
+    </div>
 
-{% endblock %}
+    <form action="" method="POST">
+    {% csrf_token %}
+    <div class="login">
+        <div class="label">
+        <label for="username">ユーザー名:</label><br>
+        </div>
+        <i class="fa-solid fa-user"></i>
+        {{ form.username }}
+    </div>
+    <div class="login">
+        <div class="label">
+        <label for="password">パスワード:</label><br>
+        </div>
+        <i class="fa-solid fa-lock"></i>
+        {{ form.password }}
+    </div>
+    <div class="login">
+        <input type="submit" value="ログイン">
+    </div>
+    </form>
+    <div class="login">
+        <button onclick="location.href='{% url 'accounts:signup' %}'" class="signupbutton" >新規登録</button>
+    </div>
+</main>
+
+{% endblock content %}

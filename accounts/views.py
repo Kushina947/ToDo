@@ -23,8 +23,12 @@ class SignUpView(FormView):
 
     def form_valid(self, form):
         if self.request.POST['next'] == 'back':
-            return render(self.request, 'registration/create.html', {'form': form})
+            return render(self.request, 'registration/sign_up.html', {'form': form})
         elif self.request.POST['next'] == 'confirm':
+            form.pass_confirm = f'{form.cleaned_data["password1"][0]}'
+            for i in range(2, len(form.cleaned_data['password1'])):
+                form.pass_confirm += '*'
+            form.pass_confirm += f'{form.cleaned_data["password1"][-1]}'
             return render(self.request, 'registration/sign_up_confirm.html', {'form': form})
         elif self.request.POST['next'] == 'register':
             form.save()

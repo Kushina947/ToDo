@@ -13,6 +13,6 @@ class AssignmentForm(forms.ModelForm):
             'description': '見出し',
         }
         widgets = {
-            'deadline': forms.DateInput(attrs={'type': 'date'}),
+            'deadline': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
     course = forms.ModelChoiceField(queryset=Course.objects.all(), empty_label=None)

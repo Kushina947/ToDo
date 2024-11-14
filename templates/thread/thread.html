@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block title %} {% endblock title %}
 
+{% block header %}
+<a href="{% url 'lecture:lecture' post.course.pk %}"> &lt; {{ post.course.name }} 講義ページへ戻る</a>
+{% endblock header %}
+
 {% block content %}
 <h1>{{ post.title }}</h1>
 <ul class="thread">

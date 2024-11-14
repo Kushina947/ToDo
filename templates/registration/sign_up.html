@@ -1,9 +1,46 @@
+{% extends "base.html" %}
 {% block title %}登録{% endblock title %}
 
 {% block content %}
-<form action="" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button name="next" value="confirm" type="submit">確認</button>
-</form>
+
+<body class="center">
+    <main>
+    <div class="signup">
+        <h1 class="page-header">新規登録ページ <i class="fa-solid fa-user-plus"></i></h1>
+    </div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+        {% endif %} 
+        <div class="signup">
+        <div class="label">
+            <label for="username">ユーザー名:</label><br>
+        </div>
+        {{ form.username }}
+        </div>
+        <div class="signup">
+        <div class="label">
+            <label for="password">パスワード:</label><br>
+        </div>
+        {{ form.password1 }}
+        <div class="label">
+            <label for="password">パスワード（再確認）:</label><br>
+        </div>
+        {{ form.password2 }}
+        </div>
+        <div class="signup">
+            <button name="next" value="confirm" type="submit">登録</button>
+        </div>
+    </form>
+        <div>
+            <button class="delbutton" onclick="location.href='{% url 'accounts:login' %}'" >キャンセル</button>
+        </div>
+    </main>
+</body>
+
 {% endblock %}

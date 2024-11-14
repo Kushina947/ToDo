@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}スレッド作成{% endblock title %}
+
+{% block content %}
+
+<h1>{{ course.name }} - スレッド作成</h1>
+<section>
+    <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="course" value="{{ course.pk }}">
+    <div class="column">
+        <label for="thread_name">スレッド名</label><br>
+        {{ form.title }}
+    </div>
+    <div class="column">
+        <label for="description">スレッド内容</label><br>
+        {{ form.content }}
+    </div>
+    <div class="column">
+        <input type="submit" value="作成">
+    </div>
+    </form>
+</section>
+
+
+{% endblock content%}

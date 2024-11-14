@@ -7,6 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .form import AssignmentForm
 from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
+from accounts.models import User_Assignment
+
 
 class AssignmentCreateView(LoginRequiredMixin, CreateView):
     model = Assignment
@@ -23,11 +25,9 @@ class AssignmentCreateView(LoginRequiredMixin, CreateView):
         context['course'] = get_object_or_404(Course, code=self.kwargs.get('code'))
         return context
 
-
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         self.object = form.save()
-        from accounts.models import User_Assignment
         User_Assignment.objects.create(user=self.request.user, assignment=self.object)
         return super().form_valid(form)
 

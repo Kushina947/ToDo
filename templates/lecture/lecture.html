@@ -4,31 +4,92 @@
 
 {% block content %}
 
-<h1>{{ course.code }}</h1>
-<h2>{{ course.name }}</h2>
-<p>{{ course.term }}</p>
-<p>{{ course.teacher }}</p>
-<p>{{ course.lecture_schedule }}</p>
+<main>
+    <!--課題表示-->
+    <section>
+        <nav class="container3">
+            <div>{{ course.name }}</div>
+            <div>{{ course.code }}</div>
+            <div>{{ course.teacher }}</div>
+            <div>{{ course.lecture_schedule }}</div>
+        </nav>
+    </section><br>
+    <section>
+            <section>
+                <h2 class="top"><i class="fa-solid fa-list-check"></i> 課題一覧</h1>
+                <table class="assignment-table">
+                    <thead>
+                        <tr>
+                            <th>課題名</th>
+                            <th>提出期限</th>
+                            <th>自分の課題として登録</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for assignment in assignments %}
+                        <tr>
+                            <td class="col-title">
+                                <a href="{% url 'assignment:detail' assignment.pk %}">
+                                    {{assignment.title}}
+                                </a>
+                            </td>
+                            <td class="col-deadline">{{assignment.deadline}}</td>
+                            <td class="col-register">
+                                {% if assignment in user_assignments %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="assignment" value="{{ assignment.pk }}">
+                                    <input type="hidden" name="user" value="{{ user.pk }}">
+                                    <input type="submit" class="mark1" value="登録済み">
+                                </form>
+                                {% else %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="assignment" value="{{ assignment.pk }}">
+                                    <input type="hidden" name="user" value="{{ user.pk }}">
+                                    <input type="submit" class="mark2" value="未登録">
+                                </form>
+                                {% endif %}
+                        </tr>
+                    </a>
+                    {% empty %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </section><br>
+            <button class="button" onclick="location.href='{% url 'assignment:create' course.code %}'" target="_blank">新規作成</button>
+    </section>
+    </main>
 
+<section>
+    <section>
+        <h1><i class="fa-solid fa-pen-to-square"></i>スレッド一覧</h1>
+        <table class="thread-table">
+            <thead>
+                <tr>
+                    <th>作成者</th>
+                    <th>タイトル</th>
+                    <th>最終更新日</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for thread in threads %}
+                <tr>
+                    <td class="col-creator">{{thread.user.username}}</td>
+                    <td class="col-title">
+                        <a href="{% url 'thread:thread' thread.pk %}">
+                            {{thread.title}}
+                        </a>
+                    </td>
+                    <td class="col-last_updated">{{thread.last_update}}</td>
+                </tr>
+            </a>
+            {% empty %}
+            {% endfor %}
+            </tbody>
+        </table>
+    <button class="button" onclick="location.href='{% url 'thread:create' course.code %}'" target="_blank">新規作成</button>
+</section>
 
-<div class="assignment">
-    <h1>課題一覧</h1>
-    <a href="{% url 'assignment:create' course.code %}">課題登録</a>
-</div>
-
-<ul>
-    {% for assignment in assignments %}
-        <a href="{% url 'assignment:detail' assignment.pk %}">{{assignment.title}}  {{assignment.description}} {{assignment.deadline}}</a><br>
-    {% empty %}
-        <p>課題はありません</p>
-    {% endfor %}
-</ul>
-<h1>スレッド一覧</h1>
-<ul>
-    {% for thread in threads %}
-        <a href="{% url 'thread:thread' thread.pk %}">{{thread.title}}</a><br>
-    {% empty %}
-        <p>スレッドはありません</p>
-    {% endfor %}
 
 {% endblock content %}

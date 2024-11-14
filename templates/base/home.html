@@ -4,33 +4,77 @@
 {% load static %}
 {% block content %}
 
-<p>{{user.username}}さん、こんにちは</p>
+<main>
+    <!--課題一覧-->
+    <section>
+    <h2 class="top"><i class="fa-solid fa-list-check"></i> 課題一覧</h1>
+    <table class="assignment-table">
+        <thead>
+            <tr>
+                <th>課題名</th>
+                <th>科目名</th>
+                <th>提出期限</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for assignment in user_assignments %}
+            <tr>
+                <td class="col-title">
+                    <a href="{% url 'assignment:detail' assignment.assignment.pk %}">
+                        {{assignment.assignment.title}}
+                    </a>
+                </td>
+                <td class="col-course">{{assignment.assignment.course.name}}</td>
+                <td class="col-deadline">{{assignment.assignment.deadline}}</td>
+            </tr>
+        </a>
+        {% empty %}
+        {% endfor %}
+        </tbody>
+    </table>
+    </section><br>
 
+    <!--履修科目-->
+    <section>
+        <h2 class="top"><i class="fa-solid fa-book-open"></i> 履修科目一覧</h1>
+        <table class="course-table">
+            <thead>
+                <tr>
+                    <th>科目名</th>
+                    <th>科目番号</th>
+                    <th>担当教員</th>
+                    <th>開講</th>
+                    <th>講義日程</th>
+                    <th>未登録の課題</th>
+                </tr>
+            </thead>
+        {% for course in courses %}
+            <tr>
+                <td class="col-name">
+                    <a href="{% url 'lecture:lecture' course.pk %}">
+                        {{course.name}}
+                    </a>
+                </td>
+                <td class="col-code">{{course.code}}</td>
+                <td class="col-teacher">{{course.teacher}}</td>
+                <td class="col-term">{{course.term}}</td>
+                <td class="col-schedule">{{course.lecture_schedule}}</td>
+                <td class="col-assignment">{{course.assignment_count}}</td>
 
+            </tr>
+        {% empty %}
+        {% endfor %}
+        </table>
+    </section><br>
 
-<h1>課題一覧</h1>
-<ul>
-    {% for assignment in user_assignments %}
-        <p>{{assignment.assignment.title}}  {{assignment.assignment.description}} {{assignment.assignment.deadline}}</p>
-    {% empty %}
-        <p>課題はありません</p>
-    {% endfor %}
-</ul>
-<h1>登録中の講義</h1>
-<ul>
-    {% for course in courses %}
-        <a href="{% url 'lecture:lecture' course.pk %}">{{course.code}} {{course.name}}</a><br>
-    {% empty %}
-        <p>講義はありません</p>
-    {% endfor %}
-</ul>
-
-<h1>講義登録</h1>
-<form method="post" action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">登録</button>
-</form>
+    <section>
+        <h2 class="top"><i class="fa-regular fa-calendar-plus"></i> 講義登録</h2>
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="submit-top-page" value="登録">
+        </form>
+    </section>
 
 {% if message %}
     <p>{{ message }}</p>
