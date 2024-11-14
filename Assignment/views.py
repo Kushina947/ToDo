@@ -15,6 +15,13 @@ class AssignmentCreateView(LoginRequiredMixin, CreateView):
     form_class = AssignmentForm
     template_name = 'assignment/assignment_create.html'
 
+    def get_initial(self):
+        initial = super().get_initial()
+        code = self.kwargs.get('code')
+        course = get_object_or_404(Course, code=code)
+        initial['course'] = course
+        return initial
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['initial'] = {'course': get_object_or_404(Course, code=self.kwargs.get('code'))}
@@ -34,18 +41,11 @@ class AssignmentCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse_lazy('lecture:lecture', kwargs={'pk': self.kwargs.get('code')})
 
-    def get_initial(self):
-        initial = super().get_initial()
-        code = self.kwargs.get('code')
-        course = get_object_or_404(Course, code=code)
-        initial['course'] = course
-        return initial
-
 
 class AssignmentUpdateView(LoginRequiredMixin, UpdateView):
     model = Assignment
     form_class = AssignmentForm
-    template_name = 'assignment/assignment_form.html'
+    template_name = 'assignment/assignment_create.html'
 
 
     def get_success_url(self):
@@ -54,6 +54,8 @@ class AssignmentUpdateView(LoginRequiredMixin, UpdateView):
 
 class AssignmentDeleteView(LoginRequiredMixin, DeleteView):
     model = Assignment
+    template_name = 'assignment/assignment_delete.html'
+    success_url = reverse_lazy('home')
 
 
     def get_success_url(self):
@@ -64,3 +66,4 @@ class AssignmentDetailView(LoginRequiredMixin, DetailView):
     model = Assignment
     template_name = 'assignment/assignment_detail.html'
     context_object_name = 'assignment'
+
