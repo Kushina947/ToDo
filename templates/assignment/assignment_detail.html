@@ -7,4 +7,6 @@
 <p>{{ assignment.description }}</p>
 <p>{{ assignment.deadline }}</p>
 
+<button onclick="location.href='{% url 'assignment:edit' pk=object.pk %}'">編集</button>
+<button onclick="location.href='{% url 'assignment:delete' pk=object.pk %}'">削除</button>
 {% endblock content %}

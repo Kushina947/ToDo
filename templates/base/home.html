@@ -11,7 +11,7 @@
 <h1>課題一覧</h1>
 <ul>
     {% for assignment in user_assignments %}
-        <p>{{assignment.assignment.title}}  {{assignment.assignment.description}} {{assignment.assignment.deadline}}</p>
+        <a href="{% url 'assignment:detail' pk=assignment.pk %}">{{assignment.assignment.title}}  {{assignment.assignment.description}} {{assignment.assignment.deadline}}</a><br>
     {% empty %}
         <p>課題はありません</p>
     {% endfor %}
