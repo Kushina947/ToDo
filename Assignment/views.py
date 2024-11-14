@@ -8,6 +8,7 @@ from .form import AssignmentForm
 from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
 from accounts.models import User_Assignment
+from lecture.form import CheckForm
 
 
 class AssignmentCreateView(LoginRequiredMixin, CreateView):
@@ -47,7 +48,6 @@ class AssignmentUpdateView(LoginRequiredMixin, UpdateView):
     form_class = AssignmentForm
     template_name = 'assignment/assignment_create.html'
 
-
     def get_success_url(self):
         return reverse_lazy('lecture:lecture', kwargs={'pk': self.object.course.code})
 
@@ -57,13 +57,67 @@ class AssignmentDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'assignment/assignment_delete.html'
     success_url = reverse_lazy('home')
 
-
     def get_success_url(self):
         return reverse_lazy('lecture:lecture', kwargs={'pk': self.object.course.code})
+
 
 
 class AssignmentDetailView(LoginRequiredMixin, DetailView):
     model = Assignment
     template_name = 'assignment/assignment_detail.html'
     context_object_name = 'assignment'
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['form'] = CheckForm()
+        user_assignment_list = User_Assignment.objects.filter(user=self.request.user)
+        user_assignment = []
+        for i in user_assignment_list:
+            user_assignment.append(i.assignment)
+        ctx['user_assignment_list'] = user_assignment
+        if User_Assignment.objects.filter(user=self.request.user, assignment=self.object).exists():
+            ctx['user_assignment'] = User_Assignment.objects.get(user=self.request.user, assignment=self.object)
+        else:
+            ctx['user_assignment'] = None
+        return ctx
+
+    def post(self, request, *args, **kwargs):
+        if request.POST['next'] == 'submit':
+            self.object = self.get_object()
+            message = ''
+            form = CheckForm(request.POST)
+            if form.is_valid():
+                user = form.cleaned_data['user']
+                assignment = form.cleaned_data['assignment']
+                try:
+                    if User_Assignment.objects.filter(user=user, assignment=assignment).exists():
+                        User_Assignment.objects.filter(user=user, assignment=assignment).delete()
+                    else:
+                        User_Assignment.objects.create(user=user, assignment=assignment)
+                except:
+                    message = 'エラーが発生しました'
+            else:
+                message = '入力内容が正しくありません'
+            ctx = self.get_context_data()
+            ctx['message'] = message
+            return self.render_to_response(ctx)
+        elif request.POST['next'] == 'finish':
+            self.object = self.get_object()
+            message = ''
+            form = CheckForm(request.POST)
+            if form.is_valid():
+                user = form.cleaned_data['user']
+                assignment = form.cleaned_data['assignment']
+                try:
+                    if User_Assignment.objects.get(user=user, assignment=assignment).is_finished == 1:
+                        User_Assignment.objects.filter(user=user, assignment=assignment).update(is_finished=0)
+                    else:
+                        User_Assignment.objects.filter(user=user, assignment=assignment).update(is_finished=1)
+                except:
+                    message = 'エラーが発生しました'
+            else:
+                message = '入力内容が正しくありません'
+            ctx = self.get_context_data()
+            ctx['message'] = message
+            return self.render_to_response(ctx)
 

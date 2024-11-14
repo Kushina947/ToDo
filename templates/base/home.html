@@ -11,13 +11,15 @@
     <table class="assignment-table">
         <thead>
             <tr>
-                <th>課題名</th>
-                <th>科目名</th>
-                <th>提出期限</th>
+                <th class="col-title">課題名</th>
+                <th class="col-course">科目名</th>
+                <th class="col-deadline">提出期限</th>
+                <th class="col-finish"></th>
             </tr>
         </thead>
         <tbody>
         {% for assignment in user_assignments %}
+            {% if assignment.is_finished == 0 %}
             <tr>
                 <td class="col-title">
                     <a href="{% url 'assignment:detail' assignment.assignment.pk %}">
@@ -26,6 +28,16 @@
                 </td>
                 <td class="col-course">{{assignment.assignment.course.name}}</td>
                 <td class="col-deadline">{{assignment.assignment.deadline}}</td>
+                <td class="col-finish">
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <input type="hidden" name="assignment" value="{{ assignment.assignment.pk }}">
+                        <input type="hidden" name="user" value="{{ user.pk }}">
+                        <button name="next" value="finish" type="finish"></button>
+                    </form>
+            {% else %}
+            {% endif %}
+                </td>
             </tr>
         </a>
         {% empty %}
@@ -72,7 +84,7 @@
         <form method="post" action="">
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" class="submit-top-page" value="登録">
+            <button name="next" value="submit" class="submit-top-page" type="submit">登録</button>
         </form>
     </section>
 

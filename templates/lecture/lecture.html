@@ -64,6 +64,7 @@
 <section>
     <section>
         <h1><i class="fa-solid fa-pen-to-square"></i>スレッド一覧</h1>
+        <button class="button" onclick="location.href='{% url 'thread:create' course.code %}'" target="_blank">新規作成</button>
         <table class="thread-table">
             <thead>
                 <tr>
@@ -88,7 +89,7 @@
             {% endfor %}
             </tbody>
         </table>
-    <button class="button" onclick="location.href='{% url 'thread:create' course.code %}'" target="_blank">新規作成</button>
+
 </section>
 
 

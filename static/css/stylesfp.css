@@ -3,6 +3,10 @@ a {
     color: blue;
 }
 
+strong {
+    color: red;
+}
+
 header {
     background-color: #d4edf9;
     padding: 0 5%;
@@ -328,7 +332,7 @@ input[type=submit].submit-top-page:hover {
     border-radius: 10px;
 }
 
-input[type=submit].mark2 {
+input[type=submit].mark2, button[type=submit].mark2 {
     background-color: white;
     border: none;
     color: black;
@@ -344,7 +348,7 @@ input[type=submit].mark2 {
 
 
 
-input[type=submit].mark1 {
+input[type=submit].mark1, button[type=submit].mark1 {
     background-color: #55a655;
     border: none;
     color: black;
@@ -358,7 +362,7 @@ input[type=submit].mark1 {
     border-radius: 10px;
 }
 
-input[type=submit].mark2:hover {
+input[type=submit].mark2:hover, button[type=submit].mark2:hover {
     background-color: white;
     border: 1px solid #55a655;
     color: black;
@@ -373,7 +377,7 @@ input[type=submit].mark2:hover {
 }
 
 
-input[type=submit].mark1:hover {
+input[type=submit].mark1:hover, button[type=submit].mark1:hover {
     background-color: #55a655;
     border: 1px solid white;
     color: black;
@@ -406,6 +410,34 @@ button[type=submit]:hover {
     border: 1px solid #78abd1;
     color: black;
     padding: 10px 21px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+button[type=finish] {
+    background-color: #ffffff;
+    border: solid black;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+button[type=finish]:hover {
+    background-color: #888888;
+    border: solid black;
+    color: white;
+    padding: 10px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;

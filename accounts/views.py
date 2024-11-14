@@ -6,6 +6,8 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
+from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class CustomLoginView(LoginView):
     template_name = "registration/login.html"
@@ -56,3 +58,7 @@ class ProfileView(TemplateView):
         ctx =  super().get_context_data(**kwargs)
         ctx['user'] = self.request.user
         return ctx
+    
+
+
+

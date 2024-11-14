@@ -3,10 +3,57 @@
 
 {% block content %}
 
-<p>{{ assignment.title }}</p>
-<p>{{ assignment.description }}</p>
-<p>{{ assignment.deadline }}</p>
+<main>
+    <!--課題表示-->
+    <div class="border-box2">
+    <div class="ap" id="ap">
+        <p class="app">科目名：{{ assignment.course.name }}</p>
+        <p class="app">タイトル：{{ assignment.title }}</p>
+        <p class="app">詳細：{{ assignment.description }}</p>
+        <p class="app">提出期限：{{ assignment.deadline }}</p>
 
-<button onclick="location.href='{% url 'assignment:edit' pk=object.pk %}'">編集</button>
-<button onclick="location.href='{% url 'assignment:delete' pk=object.pk %}'">削除</button>
-{% endblock content %}
+    </div>
+    <div>
+        {% if assignment in user_assignment_list %}
+            {% if user_assignment.is_finished == 0 %}
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="assignment" value="{{ assignment.pk }}">
+                    <input type="hidden" name="user" value="{{ user.pk }}">
+                    <button name="next" value="finish" type="submit">完了としてマーク</button>
+            {% else %}
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="assignment" value="{{ assignment.pk }}">
+                    <input type="hidden" name="user" value="{{ user.pk }}">
+                    <button name="next" value="finish" type="submit">未完了に戻す</button>
+            {% endif %}
+        </form>
+        {% else %}
+        {% endif %}
+
+    </div>
+    </div>
+    <div>
+    <button onclick="location.href='{% url 'assignment:delete' pk=object.pk %}'" class="delbutton" target="_blank">消除</button><button button onclick="location.href='{% url 'assignment:edit' pk=object.pk %}'" class="addbutton" target="_blank">編集</button><br>
+    </div>
+    </main>
+
+    {% if assignment in user_assignment_list %}
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="assignment" value="{{ assignment.pk }}">
+        <input type="hidden" name="user" value="{{ user.pk }}">
+        <button name="next" value="submit" class="mark1" type="submit">登録済み</button>
+    </form>
+    {% else %}
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="assignment" value="{{ assignment.pk }}">
+        <input type="hidden" name="user" value="{{ user.pk }}">
+        <button name="next" value="submit" class="mark2" type="submit">未登録</button>
+    </form>
+    {% endif %}
+
+
+{% endblock%}

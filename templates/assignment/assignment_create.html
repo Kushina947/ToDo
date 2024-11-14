@@ -3,13 +3,21 @@
 
 {% block content %}
 
-<h1>{{ course.name }} - 課題の追加</h1>
+{% if course.name %}
+    <h1>{{ course.name }} - 課題の追加</h1>
+{% else %}
+    <h1>課題の編集</h1>
+{% endif %}
 
 
 <section>
     <form method="post">
     {% csrf_token %}
-    <input type="hidden" name="course" value="{{ course.pk }}">
+    {% if course.name %}
+        <input type="hidden" name="course" value="{{ course.pk }}">
+    {% else %}
+        <input type="hidden" name="course" value="{{ assignment.course.pk }}">
+    {% endif %}
     <div class="column">
         <label for="assignment_name">課題名</label><br>
         {{ form.title }}
@@ -23,7 +31,12 @@
         {{ form.deadline }}
     </div>
     <div class="column">
-        <input type="submit" value="追加+">
+        {% if course.name %}
+            <input type="submit" value="追加+">
+        {% else %}
+            <input type="submit" value="編集+">
+        {% endif %}
+
     </div>
     </form>
 </section>

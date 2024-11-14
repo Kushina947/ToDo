@@ -1,5 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}課題削除{% endblock %}
+
+{% block content %}
 <form method="post">
     {% csrf_token %}
     <p>課題"{{ object }}" を本当に削除しますか?</p>
+    <p><strong>課題を削除すると登録しているほかのユーザーからも削除されます</strong></p>
     <input type="submit" value="確定">
 </form>
+{% endblock %}
