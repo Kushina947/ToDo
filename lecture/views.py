@@ -19,7 +19,9 @@ class LectureView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         self.object = self.get_object()
         ctx = super().get_context_data(**kwargs)
-        ctx['assignments'] = Assignment.objects.filter(course=self.object)
+        assignment = Assignment.objects.filter(course=self.object)
+        sorted_assignment = sorted(assignment, key=lambda x: x.deadline, reverse=True)
+        ctx['assignments'] = sorted_assignment
         thread_list = Post.objects.filter(course=self.object)
         for thread in thread_list:
             last_comment = thread.comment_set.order_by('-created_at').first()

@@ -6,10 +6,30 @@
 
 <main>
     <h1>プロフィール編集</h1>
-    <form method="post" action="">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="login">
+            <div class="label">
+            <label for="username">ユーザー名:</label><br>
+            </div>
+            <i class="fa-solid fa-user"></i>
+            {{ form.username }}
+        </div>
+        <div class="login">
+            <div class="label">
+            <label for="username">メールアドレス:</label><br>
+            </div>
+            <i class="fa-solid fa-envelope"></i>
+            {{ form.email }}
+        </div>
+        <div class="login">
+            <div class="label">
+            <label for="username">アイコン</label><br>
+            </div>
+            <i class="fa-solid fa-image"></i>
+            {{ form.icon }}
+        </div>
+
         <input type="submit" value="更新">
     </form>
-
 {% endblock %}

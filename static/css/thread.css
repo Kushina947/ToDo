@@ -1,0 +1,48 @@
+.thread {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    list-style: none;
+}
+
+.user-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 8px; /* アイコンとテキストの間のスペースを少し減らす */
+}
+
+.text-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 600px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.username {
+    font-weight: bold;
+    color: #5865f2;
+    font-size: 1em;
+    margin-left: 0; /* 必要ならば左余白を0に */
+}
+
+.post-date {
+    color: gray;
+    font-size: 0.8em;
+}
+
+.post-content {
+    margin-top: 5px;
+    line-height: 1.4;
+    color: #333;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}

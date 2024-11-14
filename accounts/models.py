@@ -5,7 +5,7 @@ from lecture.models import Course
 
 
 class CustomUser(AbstractUser):
-    icon = models.ImageField(upload_to='icon/', null=True, blank=True, default='icon/default_icon.png')
+    icon = models.ImageField(upload_to='icon/', default='icon/default_icon.png')
     courses = models.ManyToManyField(Course, related_name='students', blank=True)
     first_name = None
     last_name = None

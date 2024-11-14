@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block title %} {% endblock title %}
 
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/thread.css' %}">
+{% endblock css %}
+
 {% block header %}
 <a href="{% url 'lecture:lecture' post.course.pk %}"> &lt; {{ post.course.name }} 講義ページへ戻る</a>
 {% endblock header %}

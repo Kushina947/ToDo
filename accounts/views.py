@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import CustomUser
 
 class CustomLoginView(LoginView):
     template_name = "registration/login.html"
@@ -58,7 +59,18 @@ class ProfileView(TemplateView):
         ctx =  super().get_context_data(**kwargs)
         ctx['user'] = self.request.user
         return ctx
-    
 
+class ProfileEditView(LoginRequiredMixin, UpdateView):
+    model = CustomUser
+    fields = ['username', 'email', 'icon']
+    template_name = 'registration/profile_edit.html'
+    success_url = reverse_lazy('accounts:profile')
+
+    def get_object(self):
+        return self.request.user
+
+    def form_valid(self, form):
+        form.instance.icon = self.request.FILES.get('icon', form.instance.icon)
+        return super().form_valid(form)
 
 

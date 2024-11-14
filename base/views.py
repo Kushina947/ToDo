@@ -14,7 +14,9 @@ class HomeView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx =  super().get_context_data(**kwargs)
-        ctx['user_assignments'] = User_Assignment.objects.filter(user=self.request.user)
+        user_assignment = User_Assignment.objects.filter(user=self.request.user)
+        sorted_user_assignment = sorted(user_assignment, key=lambda x: x.assignment.deadline)
+        ctx['user_assignments'] = sorted_user_assignment
         course_list = CustomUser.objects.get(id=self.request.user.id).courses.all()
         for course in course_list:
             course.assignment_count = Assignment.objects.filter(course=course).count()

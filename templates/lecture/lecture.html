@@ -17,6 +17,7 @@
     <section>
             <section>
                 <h2 class="top"><i class="fa-solid fa-list-check"></i> 課題一覧</h1>
+                <button class="button" onclick="location.href='{% url 'assignment:create' course.code %}'" target="_blank">新規作成</button>
                 <table class="assignment-table">
                     <thead>
                         <tr>
@@ -57,7 +58,6 @@
                     </tbody>
                 </table>
                 </section><br>
-            <button class="button" onclick="location.href='{% url 'assignment:create' course.code %}'" target="_blank">新規作成</button>
     </section>
     </main>
 
