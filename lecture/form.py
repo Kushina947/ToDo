@@ -14,3 +14,7 @@ class CheckForm(forms.Form):
         empty_label=None,
         label='課題'
     )
+
+class CourseDelForm(forms.Form):
+    course = forms.ModelChoiceField(queryset=Course.objects.all())
+    user = forms.ModelChoiceField(queryset=CustomUser.objects.all())

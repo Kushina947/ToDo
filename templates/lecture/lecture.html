@@ -41,14 +41,14 @@
                                     {% csrf_token %}
                                     <input type="hidden" name="assignment" value="{{ assignment.pk }}">
                                     <input type="hidden" name="user" value="{{ user.pk }}">
-                                    <input type="submit" class="mark1" value="登録済み">
+                                    <button name="next" value="finish" class="mark1" type="submit">登録済み</button>
                                 </form>
                                 {% else %}
                                 <form method="post">
                                     {% csrf_token %}
                                     <input type="hidden" name="assignment" value="{{ assignment.pk }}">
                                     <input type="hidden" name="user" value="{{ user.pk }}">
-                                    <input type="submit" class="mark2" value="未登録">
+                                    <button name="next" value="finish" class="mark2" type="submit">未登録</button>
                                 </form>
                                 {% endif %}
                         </tr>
@@ -89,7 +89,15 @@
             {% endfor %}
             </tbody>
         </table>
-
+</section>
+<h1></h1>
+<section>
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="course" value="{{ course.pk }}">
+        <input type="hidden" name="user" value="{{ user.pk }}">
+        <button name="next" value="del" class="delbutton">講義の登録を解除</button>
+    </form>
 </section>
 
 

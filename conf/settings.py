@@ -30,9 +30,9 @@ MEDIA_URL = '/media/'
 SECRET_KEY = 'django-insecure-qmsk3whsrgsgw!ay5v=wn-zid+2wkuwphli==q!h+xozq4a4z*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition

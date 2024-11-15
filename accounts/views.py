@@ -11,6 +11,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import CustomUser
 
 class CustomLoginView(LoginView):
+    """
+    ログインページ
+    LoginViewを継承して、ログインページをカスタマイズ
+    dispatchメソッドでログイン済みユーザーはリダイレクト
+    """
     template_name = "registration/login.html"
     form_class = CustomAuthenticationForm
 
@@ -20,11 +25,19 @@ class CustomLoginView(LoginView):
         return super().dispatch(request, *args, **kwargs)
 
 class SignUpView(FormView):
+    """
+    新規登録ページ
+    FormViewを継承して、新規登録ページをカスタマイズ
+    dispatchメソッドでログイン済みユーザーはリダイレクト
+    """
     template_name = "registration/sign_up.html"
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('accounts:login')
 
     def form_valid(self, form):
+        """
+        POSTメソッドで次のページに遷移する
+        """
         if self.request.POST['next'] == 'back':
             return render(self.request, 'registration/sign_up.html', {'form': form})
         elif self.request.POST['next'] == 'confirm':
@@ -50,17 +63,24 @@ class SignUpView(FormView):
         return super().dispatch(request, *args, **kwargs)
 
 class CustomLogoutView(LogoutView):
+    """
+    ログアウトページ
+    LogoutViewを継承しただけ
+    """
     template_name = "registration/logged_out.html"
 
 class ProfileView(TemplateView):
+    """
+    プロフィールページ
+    テンプレートを指定してるだけ
+    """
     template_name = "registration/profile.html"
 
-    def get_context_data(self, **kwargs):
-        ctx =  super().get_context_data(**kwargs)
-        ctx['user'] = self.request.user
-        return ctx
-
 class ProfileEditView(LoginRequiredMixin, UpdateView):
+    """
+    プロフィール編集ページ
+    UpdateViewを継承して、プロフィール編集ページをカスタマイズ
+    """
     model = CustomUser
     fields = ['username', 'email', 'icon']
     template_name = 'registration/profile_edit.html'

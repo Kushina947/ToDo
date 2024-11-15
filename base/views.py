@@ -15,10 +15,11 @@ class HomeView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         ctx =  super().get_context_data(**kwargs)
         user_assignment = User_Assignment.objects.filter(user=self.request.user)
+        # 課題の締め切り近いものが上に表示されるようにソート
         sorted_user_assignment = sorted(user_assignment, key=lambda x: x.assignment.deadline)
         ctx['user_assignments'] = sorted_user_assignment
         course_list = CustomUser.objects.get(id=self.request.user.id).courses.all()
-        for course in course_list:
+        for course in course_list: # 講義に登録されている課題の中で登録していないものをカウント
             course.assignment_count = Assignment.objects.filter(course=course).count()
             course.assignment_count -= User_Assignment.objects.filter(user=self.request.user, assignment__course=course).count()
         ctx['courses'] = course_list
@@ -27,6 +28,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
         if request.POST['next'] == 'submit':
+            # 講義の追加
             form = CourseSearchForm(request.POST)
             if form.is_valid():
                 search_code = form.cleaned_data['course_code']
@@ -41,11 +43,12 @@ class HomeView(LoginRequiredMixin, TemplateView):
                     message = f'{search_code} は存在しません'
             else:
                 message = '入力内容が正しくありません'
-
             ctx = self.get_context_data()
             ctx['message'] = message
             return self.render_to_response(ctx)
+    
         elif request.POST['next'] == 'finish':
+            # 課題の提出状況を変更
             message = ''
             form = CheckForm(request.POST)
             if form.is_valid():
