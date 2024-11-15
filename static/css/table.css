@@ -69,25 +69,3 @@ tbody > tr:nth-of-type(even) {
     margin: 0; /* 余白をリセット */
     vertical-align: middle; /* 中央揃え */
 }
-
-.form-horizontal {
-    display: flex;
-    align-items: center; /* 垂直方向の中央揃え */
-    justify-content: center; /* 要素を中央に配置 */
-    width: 100%; /* フォーム全体の幅を100%に設定 */
-}
-
-.form-group {
-    display: flex;
-    align-items: center; /* 垂直方向の中央揃え */
-    justify-content: center; /* 要素を中央に配置 */
-    width: 100%; /* グループ全体の幅を100%に設定 */
-}
-
-.form-input {
-    margin-left: 5px; /* アイコンとフォームの間にスペースを追加 */
-}
-
-.submit-top-page {
-    margin-left: 10px; /* フォームとボタンの間にスペースを追加 */
-}
