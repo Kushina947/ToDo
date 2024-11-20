@@ -1,15 +1,11 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
-from django.views.generic.edit import FormView
+from django.shortcuts import redirect
 from .models import Course
 from .form import CheckForm, CourseDelForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView
-from django.http import JsonResponse
+from django.views.generic import DetailView
 from assignment.models import Assignment
 from thread.models import Post
 from accounts.models import User_Assignment
-from accounts.models import CustomUser
 
 
 class LectureView(LoginRequiredMixin, DetailView):
@@ -45,7 +41,7 @@ class LectureView(LoginRequiredMixin, DetailView):
         ctx['form'] = CheckForm()
         ctx['is_finished_form'] = CheckForm()
         return ctx
-    
+
     def post(self, request, *args, **kwargs):
         # 自分の課題として登録するボタンの処理
         if request.POST['next'] == 'finish':
